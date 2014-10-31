@@ -212,6 +212,10 @@ The [ActiveMerchant Wiki](http://github.com/Shopify/active_merchant/wikis) conta
 
 Deprecated functionality is removed on major version changes - for example, deprecations from 2.x are removed in 3.x.
 
+## Branch specific modifications
+
+Fixed an issue with projects that don't manually add references to the [Builder gem](https://github.com/jimweirich/builder)
+
 ## Contributing
 
 The source code is hosted at [GitHub](http://github.com/Shopify/active_merchant), and can be fetched using:
