@@ -2,6 +2,7 @@ require File.dirname(__FILE__) + '/paypal/paypal_common_api'
 require File.dirname(__FILE__) + '/paypal/paypal_express_response'
 require File.dirname(__FILE__) + '/paypal/paypal_recurring_api'
 require File.dirname(__FILE__) + '/paypal_express_common'
+require 'builder/xmlmarkup'
 
 module ActiveMerchant #:nodoc:
   module Billing #:nodoc:
@@ -85,7 +86,7 @@ module ActiveMerchant #:nodoc:
 
       private
       def build_get_details_request(token)
-        xml = Builder::XmlMarkup.new :indent => 2
+        xml = ::Builder::XmlMarkup.new :indent => 2
         xml.tag! 'GetExpressCheckoutDetailsReq', 'xmlns' => PAYPAL_NAMESPACE do
           xml.tag! 'GetExpressCheckoutDetailsRequest', 'xmlns:n2' => EBAY_NAMESPACE do
             xml.tag! 'n2:Version', API_VERSION
@@ -99,7 +100,7 @@ module ActiveMerchant #:nodoc:
       def build_sale_or_authorization_request(action, money, options)
         currency_code = options[:currency] || currency(money)
 
-        xml = Builder::XmlMarkup.new :indent => 2
+        xml = ::Builder::XmlMarkup.new :indent => 2
         xml.tag! 'DoExpressCheckoutPaymentReq', 'xmlns' => PAYPAL_NAMESPACE do
           xml.tag! 'DoExpressCheckoutPaymentRequest', 'xmlns:n2' => EBAY_NAMESPACE do
             xml.tag! 'n2:Version', API_VERSION
@@ -121,7 +122,7 @@ module ActiveMerchant #:nodoc:
         options[:express_request] = true
         options[:shipping_address] ||= options[:address]
 
-        xml = Builder::XmlMarkup.new :indent => 2
+        xml = ::Builder::XmlMarkup.new :indent => 2
         xml.tag! 'SetExpressCheckoutReq', 'xmlns' => PAYPAL_NAMESPACE do
           xml.tag! 'SetExpressCheckoutRequest', 'xmlns:n2' => EBAY_NAMESPACE do
             xml.tag! 'n2:Version', API_VERSION
@@ -194,7 +195,7 @@ module ActiveMerchant #:nodoc:
       end
 
       def build_create_billing_agreement_request(token, options = {})
-        xml = Builder::XmlMarkup.new :indent => 2
+        xml = ::Builder::XmlMarkup.new :indent => 2
         xml.tag! 'CreateBillingAgreementReq', 'xmlns' => PAYPAL_NAMESPACE do
           xml.tag! 'CreateBillingAgreementRequest', 'xmlns:n2' => EBAY_NAMESPACE do
             xml.tag! 'n2:Version', API_VERSION
@@ -206,7 +207,7 @@ module ActiveMerchant #:nodoc:
       end
 
       def build_cancel_billing_agreement_request(token)
-        xml = Builder::XmlMarkup.new :indent => 2
+        xml = ::Builder::XmlMarkup.new :indent => 2
         xml.tag! 'BillAgreementUpdateReq', 'xmlns' => PAYPAL_NAMESPACE do
           xml.tag! 'BAUpdateRequest', 'xmlns:n2' => EBAY_NAMESPACE do
             xml.tag! 'n2:Version', API_VERSION
@@ -219,7 +220,7 @@ module ActiveMerchant #:nodoc:
       end
 
       def build_details_billing_agreement_request(reference_id)
-        xml = Builder::XmlMarkup.new :indent => 2
+        xml = ::Builder::XmlMarkup.new :indent => 2
         xml.tag! 'BillAgreementUpdateReq', 'xmlns' => PAYPAL_NAMESPACE do
           xml.tag! 'BAUpdateRequest', 'xmlns:n2' => EBAY_NAMESPACE do
             xml.tag! 'n2:Version', API_VERSION
@@ -235,7 +236,7 @@ module ActiveMerchant #:nodoc:
 
         # I am not sure why it's set like this for express gateway
         # but I don't want to break the existing behavior
-        xml = Builder::XmlMarkup.new :indent => 2
+        xml = ::Builder::XmlMarkup.new :indent => 2
         xml.tag! 'DoReferenceTransactionReq', 'xmlns' => PAYPAL_NAMESPACE do
           xml.tag! 'DoReferenceTransactionRequest', 'xmlns:n2' => EBAY_NAMESPACE do
             xml.tag! 'n2:Version', API_VERSION
